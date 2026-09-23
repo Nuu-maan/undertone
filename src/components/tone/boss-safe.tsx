@@ -2,7 +2,7 @@ import { BriefcaseIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function BossSafe({ score }: { score: number }) {
-  const safe = score >= 0.5;
+  const safe = score >= 0.55;
   return (
     <Tooltip>
       <TooltipTrigger asChild>
