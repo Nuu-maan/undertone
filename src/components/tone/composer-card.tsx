@@ -1,11 +1,13 @@
 "use client";
 
-import { motion, type TargetAndTransition } from "motion/react";
-import { Card, CardFooter } from "@/components/ui/card";
+import { AnimatePresence, motion, type TargetAndTransition } from "motion/react";
+import { Kbd } from "@/components/ui/kbd";
 import { Textarea } from "@/components/ui/textarea";
 import type { ToneResult } from "@/lib/tone/types";
 import type { Mood, Verdict } from "@/lib/tone/verdict";
 import { BossSafe } from "./boss-safe";
+import { PhraseTips } from "./phrase-tips";
+import { SignalMeters } from "./signal-meters";
 import { VerdictBadge } from "./verdict-badge";
 
 const REACTIONS: Partial<Record<Mood, TargetAndTransition>> = {
@@ -19,35 +21,51 @@ const REACTIONS: Partial<Record<Mood, TargetAndTransition>> = {
 
 type Props = {
   text: string;
+  placeholder: string;
   onTextChange: (text: string) => void;
   verdict: Verdict | null;
   result: ToneResult | null;
-  pending: boolean;
 };
 
-export function ComposerCard({ text, onTextChange, verdict, result, pending }: Props) {
+export function ComposerCard({ text, placeholder, onTextChange, verdict, result }: Props) {
   return (
-    <motion.div animate={verdict ? REACTIONS[verdict.mood] : undefined}>
-      <Card className="mood-ring gap-0 py-0">
-        <Textarea
-          autoFocus
-          value={text}
-          onChange={(e) => onTextChange(e.target.value)}
-          placeholder="Type the message you're about to send…"
-          aria-label="Message"
-          maxLength={2000}
-          className="min-h-44 resize-none rounded-none border-0 bg-transparent p-5 text-lg leading-relaxed shadow-none focus-visible:ring-0 md:text-lg dark:bg-transparent"
-        />
-        <CardFooter className="flex-wrap justify-between gap-3 bg-transparent">
-          <VerdictBadge verdict={verdict} />
-          <div className="flex items-center gap-4">
-            {result && <BossSafe score={result.reading.bossSafe} />}
-            <span className="font-mono text-xs text-muted-foreground tabular-nums" aria-live="polite">
-              {pending ? "reading…" : result ? `${result.model} · ${result.latencyMs}ms` : ""}
-            </span>
-          </div>
-        </CardFooter>
-      </Card>
+    <motion.div
+      animate={verdict ? REACTIONS[verdict.mood] : undefined}
+      className="mood-ring overflow-hidden rounded-[28px] border bg-card"
+    >
+      <Textarea
+        autoFocus
+        rows={1}
+        value={text}
+        onChange={(e) => onTextChange(e.target.value)}
+        onKeyDown={(e) => e.key === "Escape" && onTextChange("")}
+        placeholder={placeholder}
+        aria-label="Message"
+        maxLength={2000}
+        className="min-h-0 resize-none rounded-none border-0 bg-transparent px-5 py-4 text-xl leading-relaxed shadow-none focus-visible:ring-0 md:text-xl dark:bg-transparent"
+      />
+      <AnimatePresence initial={false}>
+        {verdict && result && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <div className="grid gap-5 px-5 pt-1 pb-4">
+              <VerdictBadge verdict={verdict} />
+              <SignalMeters reading={result.reading} />
+              <PhraseTips text={text} />
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span className="flex items-center gap-1.5">
+                  <Kbd>Esc</Kbd> to clear
+                </span>
+                <BossSafe score={result.reading.bossSafe} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
