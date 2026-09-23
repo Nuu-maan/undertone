@@ -1,5 +1,6 @@
 "use client";
 
+import { MotionConfig } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTone } from "@/hooks/use-tone";
 import { verdictFor } from "@/lib/tone/verdict";
@@ -19,21 +20,23 @@ export function ToneComposer() {
   }, []);
 
   return (
-    <div data-mood={verdict?.mood ?? "idle"} className="grid w-full max-w-xl gap-4">
-      <ComposerCard
-        text={text}
-        placeholder={EXAMPLES[example]}
-        onTextChange={setText}
-        verdict={verdict}
-        result={result}
-      />
-      {!text && (
-        <div className="grid gap-2 text-center">
-          <p className="text-sm text-muted-foreground">Type a message. It tells you how it sounds before you send it.</p>
-          <ExamplePrompts onPick={setText} />
-        </div>
-      )}
-      <LatencyHud result={result} pending={pending} />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div data-mood={verdict?.mood ?? "idle"} className="grid w-full max-w-xl gap-4">
+        <ComposerCard
+          text={text}
+          placeholder={EXAMPLES[example]}
+          onTextChange={setText}
+          verdict={verdict}
+          result={result}
+        />
+        {!text && (
+          <div className="grid gap-2 text-center">
+            <p className="text-sm text-muted-foreground">Type a message. It tells you how it sounds before you send it.</p>
+            <ExamplePrompts onPick={setText} />
+          </div>
+        )}
+        <LatencyHud result={result} pending={pending} />
+      </div>
+    </MotionConfig>
   );
 }
