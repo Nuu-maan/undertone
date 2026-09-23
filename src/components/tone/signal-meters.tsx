@@ -22,7 +22,7 @@ export function SignalMeters({ reading }: { reading: Reading }) {
           <Progress
             value={value * 100}
             aria-label={label}
-            className="[&>[data-slot=progress-indicator]]:bg-(--mood) [&>[data-slot=progress-indicator]]:duration-500"
+            className="[&>[data-slot=progress-indicator]]:bg-(--mood) [&>[data-slot=progress-indicator]]:transition-transform [&>[data-slot=progress-indicator]]:duration-300 [&>[data-slot=progress-indicator]]:ease-(--ease-out)"
           />
         </div>
       ))}
