@@ -133,3 +133,40 @@
     @apply font-sans;
   }
 }
+[data-mood] {
+  --mood: var(--muted-foreground);
+}
+[data-mood="warm"] {
+  --mood: oklch(0.7 0.15 155);
+}
+[data-mood="excited"] {
+  --mood: oklch(0.78 0.16 85);
+}
+[data-mood="cold"] {
+  --mood: oklch(0.68 0.12 235);
+}
+[data-mood="anxious"] {
+  --mood: oklch(0.66 0.15 295);
+}
+[data-mood="angry"] {
+  --mood: oklch(0.63 0.22 27);
+}
+[data-mood="passiveAggressive"] {
+  --mood: oklch(0.7 0.17 55);
+}
+[data-mood="sarcastic"] {
+  --mood: oklch(0.65 0.2 340);
+}
+[data-mood="apologetic"] {
+  --mood: oklch(0.74 0.11 0);
+}
+[data-mood="pushy"] {
+  --mood: oklch(0.66 0.19 40);
+}
+
+.mood-ring {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--mood) 45%, transparent),
+    0 12px 48px -12px color-mix(in oklch, var(--mood) 40%, transparent);
+  transition: box-shadow 400ms ease;
+}
