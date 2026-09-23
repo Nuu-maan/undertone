@@ -24,3 +24,10 @@ test("heated messages are not boss-safe", () => {
   expect(offlineReading("with all due respect this is RIDICULOUS!!").bossSafe).toBeLessThan(0.5);
   expect(offlineReading("Thanks for the update, looks good.").bossSafe).toBeGreaterThan(0.5);
 });
+
+test("a specific flag beats a broad tone", () => {
+  const reading = offlineReading("");
+  reading.tone = { neutral: 0, warm: 0, excited: 0, cold: 0, anxious: 0, angry: 0.97 };
+  reading.flags.sarcastic = 0.92;
+  expect(verdictFor(reading).mood).toBe("sarcastic");
+});

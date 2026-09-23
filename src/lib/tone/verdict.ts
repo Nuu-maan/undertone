@@ -30,7 +30,7 @@ export function verdictFor(reading: Reading): Verdict {
   const tones = TONES.filter((t) => t !== "neutral" && reading.tone[t] > reading.tone.neutral).map((t) =>
     verdict(t, reading.tone[t]),
   );
-  const candidates = [...flags, ...tones];
+  const candidates = flags.length ? flags : tones;
   if (!candidates.length) return verdict("neutral", reading.tone.neutral);
   return candidates.reduce((best, c) => (c.strength > best.strength ? c : best));
 }
