@@ -22,7 +22,7 @@ export async function GithubStars({ repo }: { repo: string }) {
   return (
     <a
       href={`https://github.com/${repo}`}
-      className="fixed top-4 right-4 flex items-center gap-2 rounded-xl border bg-card px-2.5 py-1.5 text-sm text-muted-foreground shadow-xs transition-colors hover:text-foreground"
+      className="fixed top-4 right-4 flex items-center gap-2 rounded-xl border bg-card px-2.5 py-1.5 text-sm text-muted-foreground shadow-xs pressable hover:text-foreground"
     >
       <GithubMark />
       GitHub
