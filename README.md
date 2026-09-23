@@ -1,6 +1,6 @@
 # undertone
 
-**Hear how it sounds before you hit send.** A text box that reads the tone of your message as you type and reacts to it: it glows, shakes or wobbles, tells you if it's boss-safe, and points at the exact phrases doing the damage.
+**Hear how it sounds before you hit send.** A text box that reads the tone of your message as you type and grows into a reading of it: it glows in the tone's color, tells you if it's boss-safe, and points at the exact phrases doing the damage.
 
 ```
 Per my last email, I need the deck ASAP.    →  Passive-aggressive · Not boss-safe
@@ -11,7 +11,7 @@ k.                                          →  Reads cold
 
 ## How it works
 
-One [TypeSafe AI](https://typesafe.ai) **Jev** call answers eight typed questions about the message in parallel: overall tone, passive-aggression, sarcasm, over-apologizing, pushiness, urgency, formality, and whether you'd send it to your manager. Plain code turns those answers into a verdict, a color, an animation and phrase-level tips.
+One [TypeSafe AI](https://typesafe.ai) **Jev** call answers eight typed questions about the message in parallel: overall tone, passive-aggression, sarcasm, over-apologizing, pushiness, urgency, formality, and whether you'd send it to your manager. Plain code turns those answers into a verdict, a color and phrase-level tips.
 
 Without an API key it falls back to a built-in keyword classifier, so it runs out of the box.
 
