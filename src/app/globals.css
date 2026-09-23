@@ -49,7 +49,7 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0.001 106.4);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -134,7 +134,7 @@
   }
 }
 [data-mood] {
-  --mood: var(--muted-foreground);
+  --mood: oklch(0.56 0.2 268);
   --mood-ink: color-mix(in oklch, var(--mood) 72%, var(--foreground));
 }
 [data-mood="warm"] {
@@ -166,8 +166,11 @@
 }
 
 .mood-ring {
+  border-color: color-mix(in oklch, var(--mood) 70%, transparent);
   box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--mood) 45%, transparent),
-    0 12px 48px -12px color-mix(in oklch, var(--mood) 40%, transparent);
-  transition: box-shadow 400ms ease;
+    0 0 0 4px color-mix(in oklch, var(--mood) 10%, transparent),
+    0 16px 48px -16px color-mix(in oklch, var(--mood) 35%, transparent);
+  transition:
+    border-color 400ms ease,
+    box-shadow 400ms ease;
 }
