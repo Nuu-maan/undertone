@@ -135,6 +135,7 @@
 }
 [data-mood] {
   --mood: var(--muted-foreground);
+  --mood-ink: color-mix(in oklch, var(--mood) 72%, var(--foreground));
 }
 [data-mood="warm"] {
   --mood: oklch(0.7 0.15 155);
